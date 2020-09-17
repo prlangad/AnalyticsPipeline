@@ -263,7 +263,7 @@ GO
 --16.EmployeePIIData
 COPY INTO wwi.EmployeePIIData
 (Id 1, FirstName 2, LastName 3, Company 4, Address 5, City 6, County 7, State 8, Phone 9, email 10, SSN 11)
-FROM 'https://synapsedemos.dfs.core.windows.net/rawdata/WWI/EmployeePIIData20K.csv'
+FROM 'https://<ADLSGen2 storage account>.dfs.core.windows.net/rawdata/WWI/EmployeePIIData20K.csv'
 WITH
 (
 	FILE_TYPE = 'CSV'
@@ -271,7 +271,7 @@ WITH
 	,FIELDQUOTE = '"'
 	,FIELDTERMINATOR = ','
 	,FIRSTROW = 2
-	,ERRORFILE = 'https://synapsedemos.dfs.core.windows.net/rawdata/'
+	,ERRORFILE = 'https://<ADLSGen2 storage account>.dfs.core.windows.net/rawdata/'
 	,IDENTITY_INSERT = 'OFF'
 )
 --END
