@@ -17,14 +17,14 @@
         GRANT SELECT ON wwi.EmployeePIIData TO [youralias@domain.com] 
         EXEC sp_addrolemember 'db_datareader', 'youralias@domain.com'
 
-        CREATE USER [youralias@domain.com] FROM EXTERNAL PROVIDER
-        GRANT SELECT ON wwi.EmployeePIIData TO [youralias@domain.com] 
-        EXEC sp_addrolemember 'db_datareader', 'youralias@domain.com'
+        CREATE USER [someoneelse@domain.com] FROM EXTERNAL PROVIDER
+        GRANT SELECT ON wwi.EmployeePIIData TO [someoneelse@domain.com] 
+        EXEC sp_addrolemember 'db_datareader', 'someoneelse@domain.com'
 
 
         --Grant Impersonate permissions for AAD login 
-        GRANT IMPERSONATE ON USER::[youralias@domain.com] TO [youralias@domain.com];
-        GRANT IMPERSONATE ON USER::[youralias@domain.com] TO [youralias@domain.com];
+        GRANT IMPERSONATE ON USER::[someoneelse@domain.com] TO [youralias@domain.com];
+        GRANT IMPERSONATE ON USER::[youralias@domain.com] TO [someoneelse@domain.com];
 
         --Create roles as values present in column 
         --CREATE ROLE [DE]; --This role already exists for SQL login
@@ -35,7 +35,7 @@
         -- Add AAD users to roles      
         EXEC sp_addrolemember 'NY', 'youralias@domain.com';
         EXEC sp_addrolemember 'PA', 'youralias@domain.com';
-        EXEC sp_addrolemember 'CA', 'youralias@domain.com';
+        EXEC sp_addrolemember 'CA', 'someoneelse@domain.com';
 
 
         CREATE FUNCTION wwi.fn_securitypredicate_rolemember(@State AS sysname)  
@@ -63,7 +63,7 @@
         select user_name() as UserName, is_rolemember('NY') As IsALCustomer, is_rolemember('CA') As IsCACustomer
         select top 100 * from wwi.EmployeePIIData ;
         revert
-        EXECUTE AS USER ='youralias@domain.com'
+        EXECUTE AS USER ='someoneelse@domain.com'
         select user_name() as UserName, is_rolemember('NY') As IsALCustomer, is_rolemember('CA') As IsCACustomer
         select top 100 [State], * from wwi.EmployeePIIData ;
         revert
