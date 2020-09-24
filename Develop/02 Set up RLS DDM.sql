@@ -6,7 +6,7 @@
         ALTER COLUMN EmailId varchar(100) MASKED WITH (FUNCTION = 'email()'); 
 
         ALTER TABLE wwi.EmployeePIIData  
-        ALTER COLUMN Phone2 varchar(100) MASKED WITH (FUNCTION = 'partial(0,"XXX-XXX-XX",2)'); 
+        ALTER COLUMN Phone varchar(100) MASKED WITH (FUNCTION = 'partial(0,"XXX-XXX-XX",2)'); 
 
 /*****************************************************************************************************************/
 
